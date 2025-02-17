@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  api:
+    container_name: budget-api
+    build:
+      context: docker/api
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - ${API_PORT}:8000
+    volumes:
+      - ./app/api:/app/api
+      - ./app/alembic:/app/alembic
+      - ./app/alembic.ini:/app/alembic.ini
+    env_file:
+      - .env
+
+  db:
+    container_name: budget-db
+    image: postgres:latest
+    restart: always
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    container_name: budget-redis
+    build:
+      context: docker/redis
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "127.0.0.1:${REDIS_PORT}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  redis_data:

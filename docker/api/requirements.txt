@@ -1,0 +1,10 @@
+fastapi==0.115.8
+uvicorn==0.34.0
+alembic==1.14.1
+sqlalchemy==2.0.38
+psycopg2-binary==2.9.10
+pydantic-settings==2.7.1
+pyjwt==2.10.1
+cryptography==44.0.1
+asyncpg==0.30.0
+redis==5.2.1
