@@ -27,6 +27,7 @@ async def login_user(
 @router.post(
     "/refresh",
     response_model=STokenResponse,
+    response_model_exclude_none=True,
     description="Required refresh token",
 )
 async def refresh_token(
