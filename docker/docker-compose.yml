@@ -1,8 +1,10 @@
 version: "3.8"
 
+name: fastapi-jwt-template
+
 services:
   api:
-    container_name: budget-api
+    container_name: ${COMPOSE_PROJECT_NAME}-api
     build:
       context: api
       dockerfile: Dockerfile
@@ -22,7 +24,7 @@ services:
       - ../.env
 
   db:
-    container_name: budget-db
+    container_name: ${COMPOSE_PROJECT_NAME}-db
     image: postgres:latest
     restart: always
     ports:
@@ -38,7 +40,7 @@ services:
       retries: 5
 
   redis:
-    container_name: budget-redis
+    container_name: ${COMPOSE_PROJECT_NAME}-redis
     build:
       context: redis
       dockerfile: Dockerfile
