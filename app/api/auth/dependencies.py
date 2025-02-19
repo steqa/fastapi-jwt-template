@@ -8,9 +8,9 @@ from api.auth.redis_services import is_token_blacklisted
 from api.auth.schemas import SUserPayload
 from api.auth.utils import decode_jwt, REFRESH_TOKEN_TYPE, ACCESS_TOKEN_TYPE
 from api.database import get_session
-from api.user.exceptions import EUserNotFound
-from api.user.models import User
-from api.user.services import get_user
+from api.user.dependencies import user_service as user_service_dependency
+from api.user.schemas import SUser
+from api.user.service import UserService
 
 http_bearer = HTTPBearer()
 
@@ -30,14 +30,15 @@ async def get_user_from_payload(payload: dict) -> SUserPayload:
     return SUserPayload(**payload)
 
 
-async def get_user_by_token_sub(payload: dict, session) -> User:
-    user = await get_user(
-        db=session,
+async def get_user_by_token_sub(
+        payload: dict,
+        session: AsyncSession,
+        user_service: UserService,
+) -> SUser:
+    user = await user_service.get_user(
+        session=session,
         id_=payload["sub"]
     )
-    if user is None:
-        raise EUserNotFound
-
     return user
 
 
@@ -64,7 +65,8 @@ async def get_current_auth_user(
 async def get_current_auth_user_for_refresh(
         token_payload: dict = Depends(get_token_payload),
         session: AsyncSession = Depends(get_session),
-) -> User:
+        user_service: UserService = Depends(user_service_dependency),
+) -> SUser:
     validate_token_type(token_payload, REFRESH_TOKEN_TYPE)
     validate_token_blacklist(token_payload)
-    return await get_user_by_token_sub(token_payload, session)
+    return await get_user_by_token_sub(token_payload, session, user_service)
