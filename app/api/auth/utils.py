@@ -4,13 +4,13 @@ from uuid import uuid4
 import jwt
 
 from api.settings import settings
-from api.user.models import User
+from api.user.schemas import SUser
 
 ACCESS_TOKEN_TYPE = "access"
 REFRESH_TOKEN_TYPE = "refresh"
 
 
-def create_access_token(user: User) -> str:
+def create_access_token(user: SUser) -> str:
     jwt_payload = {
         "type": ACCESS_TOKEN_TYPE,
         "id": str(user.id),
@@ -21,7 +21,7 @@ def create_access_token(user: User) -> str:
     )
 
 
-def create_refresh_token(user: User) -> str:
+def create_refresh_token(user: SUser) -> str:
     jwt_payload = {
         "type": REFRESH_TOKEN_TYPE,
         "sub": str(user.id),

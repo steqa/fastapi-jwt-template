@@ -5,6 +5,12 @@ from pydantic import Field, field_validator
 from api.schemas import BaseSchema
 
 
+class SUser(BaseSchema):
+    id: UUID
+    username: str
+    password: bytes
+
+
 class SUserCreate(BaseSchema):
     username: str = Field(..., min_length=5, max_length=255)
     password: str = Field(..., min_length=5, max_length=255)

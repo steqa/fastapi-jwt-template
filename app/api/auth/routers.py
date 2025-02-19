@@ -9,14 +9,14 @@ from api.auth.redis_services import add_token_to_blacklist
 from api.auth.schemas import STokenResponse
 from api.auth.utils import create_access_token, create_refresh_token
 from api.user.dependencies import authenticate_user
-from api.user.models import User
+from api.user.schemas import SUser
 
 router = APIRouter(prefix="/api/v1/auth/jwt", tags=["auth/jwt"])
 
 
 @router.post("/login", response_model=STokenResponse)
 async def login_user(
-        user: User = Depends(authenticate_user)
+        user: SUser = Depends(authenticate_user)
 ):
     return STokenResponse(
         access_token=create_access_token(user),
@@ -31,7 +31,7 @@ async def login_user(
     description="Required refresh token",
 )
 async def refresh_token(
-        user: User = Depends(get_current_auth_user_for_refresh),
+        user: SUser = Depends(get_current_auth_user_for_refresh),
 ):
     return STokenResponse(
         access_token=create_access_token(user)
@@ -44,7 +44,7 @@ async def refresh_token(
     description="Required refresh token",
 )
 async def logout_user(
-        user: User = Depends(get_current_auth_user_for_refresh),
+        user: SUser = Depends(get_current_auth_user_for_refresh),
         token_payload: dict = Depends(get_token_payload)
 ):
     jti = token_payload.get("jti", None)
