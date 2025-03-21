@@ -6,25 +6,25 @@
 
 ![Python](https://img.shields.io/badge/Python-3.13-blue?style=flat&logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-D02C2A?style=flat&logo=redis&logoColor=white) ![Alembic](https://img.shields.io/badge/Alembic-b57414?style=flat&logo=python&logoColor=white)
 
-## :bookmark_tabs: Content
+## Content
 1. [Description](#description)
 2. [Features](#features)
 3. [Prerequisites](#prerequisites)
 4. [Setup](#setup)
 5. [Usage](#usage)
 6. [License](#license)
-## :memo: Description
+## Description
 
 This is a template for a FastAPI application with JWT authentication. It uses PostgreSQL for the database and Redis for blacklisting refresh tokens. The project is containerized using Docker.
 
-## :sparkles: Features
+## Features
 
 - Secure JWT-based user authentication with bcrypt hashing for passwords
 - API endpoints for login, logout, and token refresh, with expiration handling
 - Blacklisting refresh tokens in Redis for enhanced security
 - Creating a user with password validation
 
-## :electric_plug: Endpoints
+## Endpoints
 
 1. **Login User**
 	- _**POST**_ `/api/v1/auth/jwt/login`
@@ -42,11 +42,11 @@ This is a template for a FastAPI application with JWT authentication. It uses Po
 	- _**GET**_ `/api/v1/users/me`
 	- _**Description**_: Retrieves the details of the currently authenticated user.
 
-## :heavy_check_mark: Prerequisites
+## Prerequisites
 
 Make sure Docker is installed and running on your system. You can download it from [here](https://www.docker.com/get-started).
 
-## :wrench: Setup
+## Setup
 
 1. **Clone the repository**
 
@@ -67,9 +67,9 @@ Make sure Docker is installed and running on your system. You can download it fr
 	docker compose -f docker/docker-compose.yml --env-file .env up --build
 	```
 
-## :computer: Usage
+## Usage
 - The API will be available at http://localhost:8000
 - You can interact with the API using Swagger UI at http://localhost:8000/docs
 
-## :scroll: License
+## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
