@@ -6,25 +6,25 @@
 
 ![Python](https://img.shields.io/badge/Python-3.13-blue?style=flat&logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-D02C2A?style=flat&logo=redis&logoColor=white) ![Alembic](https://img.shields.io/badge/Alembic-b57414?style=flat&logo=python&logoColor=white)
 
-## :bookmark_tabs: Содержание
+## Содержание
 1. [Описание](#описание)
 2. [Функциональность](#функциональность)
 3. [Требования](#требования)
 4. [Установка](#установка)
 5. [Использование](#использование)
 6. [Лицензия](#лицензия)
-## :memo: Описание
+## Описание
 
 Это шаблон для FastAPI-приложения с JWT аутентификацией. Он использует PostgreSQL для базы данных и Redis для черного списка refresh-токенов. Проект контейнеризирован с помощью Docker.
 
-## :sparkles: Функциональность
+## Функциональность
 
 - Безопасная JWT аутентификация пользователей с хэшированием паролей через bcrypt
 - API-эндпоинты для входа, выхода и обновления токенов с обработкой истечения срока действия
 - Черный список обновляемых токенов в Redis для повышения безопасности
 - Создание пользователя с проверкой пароля
 
-## :electric_plug: Эндпоинты
+## Эндпоинты
 
 1. **Вход пользователя**
 	- _**POST**_ `/api/v1/auth/jwt/login`
@@ -42,11 +42,11 @@
 	- _**GET**_ `/api/v1/users/me`
 	- _**Описание**_: Возвращает данные текущего аутентифицированного пользователя.
 
-## :heavy_check_mark: Требования
+## Требования
 
 Убедитесь, что Docker установлен и запущен на вашей системе. Скачать Docker можно [здесь](https://www.docker.com/get-started).
 
-## :wrench: Установка
+## Установка
 
 1. **Клонируйте репозиторий**
 
@@ -67,9 +67,9 @@
 	docker compose -f docker/docker-compose.yml --env-file .env up --build
 	```
 
-## :computer: Использование
+## Использование
 - API будет доступен по адресу: http://localhost:8000
 - Для взаимодействия с API используйте Swagger UI: http://localhost:8000/docs
 
-## :scroll: Лицензия
+## Лицензия
 Этот проект распространяется под лицензией MIT. Подробнее см. в файле [LICENSE](LICENSE).
